@@ -1,5 +1,4 @@
-angular.module('angular-knob', []);
-angular.module('angular-knob').directive('knob', function() {
+angular.module('angular-knob', []).directive('knob', function() {
   return {
     restrict: 'E',
     template: '<div class="knob"></div>',
