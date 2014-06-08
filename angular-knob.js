@@ -1,23 +1,21 @@
 angular.module('angular-knob', []).directive('knob', function() {
   return {
     restrict: 'E',
-    scope: {
-      value: "="
-    },
+    require: "ngModel",
     template: '<div class="knob"></div>',
-    link: function($scope, $element, $attrs) {
+    link: function($scope, $element, $attrs, modelCtrl) {
       $element.knob({
         fgColor: $attrs.fgColor,
         change: function(value) {
           $scope.$apply(function() {
-            $scope.value = value;
+            modelCtrl.$setViewValue(value);
           });
         }
       });
 
-      $scope.$watch("value", function(newValue, oldValue) {
-        $element.val(newValue).trigger('change');
-      });
+      modelCtrl.$render = function() {
+        $element.val(this.$viewValue).trigger("change");
+      }
     }
   }
 })
